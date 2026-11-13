@@ -6,12 +6,14 @@
 #include "combate/combate.h"
 #include "fases/fases.h"
 #include "utils/utils.h"
+#include "historia/historia.h"
 
 int main() {
     srand(time(NULL)); // Inicializa a semente de aleatoriedade dos dados
 
     Personagem heroi;
 
+    exibirPrologo();
     printf("============================================================\n");
     printf("              BEM-VINDO AO RPG DE TABULEIRO                 \n");
     printf("============================================================\n\n");

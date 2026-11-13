@@ -4,6 +4,7 @@
 #include "fases.h"
 #include "../combate/combate.h"
 #include "../utils/utils.h"
+#include "../historia/historia.h"
 
 void inicializarFase(Fase *f, int numeroFase) {
     f->numeroFase = numeroFase;
@@ -143,14 +144,14 @@ void executarEventoCasa(Personagem *p, Fase *f, int *posicao) {
             curarPersonagem(p, 40);
             break;
 
-        case CASA_ARMADILHA: {
+        case CASA_ARMADILHA: 
             int danoArmadilha = rolarDado(10) + 5;
             printf("[!]   ARMADILHA   [!]\n");
             printf("Voce caiu nas armadilhas de espinhos! (-%d HP)\n", danoArmadilha);
             danoPersonagem(p, danoArmadilha);
             printf("Vida atual de %s: %d/%d\n", p->nome, p->vida, p->vidaMax);
             break;
-        }
+        
 
         case CASA_MISSAO:
             printf("OBJETIVO ENCONTRADO! Voce descobriu uma pista importante da missao! (+1 Exploracao Extra)\n");
@@ -158,27 +159,35 @@ void executarEventoCasa(Personagem *p, Fase *f, int *posicao) {
             ganharXP(p, 20);
             break;
 
-        case CASA_CHEFE: {
+        case CASA_CHEFE: 
             Monstro chefe;
             ClasseMonstro tipoChefe;
             if (f->numeroFase == 1) {
                 tipoChefe = AURA_CHEFE;
+                exibirDialogoPreAura(p);
             } else if (f->numeroFase == 2) {
                 tipoChefe = MACHT_CHEFE;
+                exibirDialogoPreMacht(p);
             } else {
                 tipoChefe = REI_DEMONIO_CHEFE;
+                exibirDialogoPreReiDemonio(p);
             }
+
             inicializarMonstro(&chefe, tipoChefe, f->fatorDificuldade);
             int resultado = iniciarCombate(p, &chefe);
 
             if (resultado == 1) {
                 f->chefeDerrotado = 1;
-            } else if (resultado == 2) {
-                printf("Voce recuou estrategicamente da sala do Chefe para a Casa 10!\n");
-                *posicao = 9; // Recua para a Casa 10 se fugir do chefe
+                if (f->numeroFase == 1) {
+                    exibirDialogoPosAura(p);
+                } else if (f->numeroFase == 2) {
+                    exibirDialogoPosMacht(p);
+                } else {
+                    exibirDialogoFinal(p);
+                }
             }
             break;
-        }
+         
     }
 
     // Incrementa o contador a cada casa visitada (exceto na casa do chefe)
@@ -241,6 +250,14 @@ int jogarFase(Personagem *p, int numeroFase) {
 
 void iniciarCampanha(Personagem *p) {
     for (int etapa = 1; etapa <= 3; etapa++) {
+        if (etapa == 1) {
+            exibirDialogoAto1(p);
+        } else if (etapa == 2) {
+            exibirDialogoAto2(p);
+        } else if (etapa == 3) {
+            exibirDialogoAto3(p);
+        }
+
         int venceuFase = jogarFase(p, etapa);
         if (!venceuFase) {
             printf("\n============================================================\n");

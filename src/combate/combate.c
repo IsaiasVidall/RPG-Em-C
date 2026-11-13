@@ -104,7 +104,7 @@ int iniciarCombate(Personagem *p,  Monstro *m){
                 }
 
                 // Recupera 20% do HP maximo e aumenta +1 em todos os atributos
-                curarPersonagem(p, p->vidaMax / 5);
+                curarPersonagem(p, p->vidaMax / 4);
                 p->forca += 1;
                 p->defesa += 1;
                 p->agilidade += 1;
