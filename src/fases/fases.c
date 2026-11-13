@@ -236,12 +236,17 @@ int jogarFase(Personagem *p, int numeroFase) {
     }
 
     if (heroiVivo(p)) {
-        printf("\n============================================================\n");
-        printf("  FASE %d CONCLUIDA! Missao cumprida com sucesso!\n", numeroFase);
-        printf("  Voce descansou no acampamento antes da proxima jornada!\n");
-        curarPersonagem(p, p->vidaMax / 2); // Recupera metade da vida maxima entre as fases!
-        printf("============================================================\n");
-        pausar();
+        if (numeroFase < 3) {
+            printf("\n============================================================\n");
+            printf("  FASE %d CONCLUIDA! Missao cumprida com sucesso!\n", numeroFase);
+            printf("  Voce descansou no acampamento antes da proxima jornada!\n");
+            curarPersonagem(p, p->vidaMax / 2); // Recupera metade da vida maxima entre as fases!
+            printf("============================================================\n");
+            pausar();
+        }
+        else {
+             p->vida = p->vidaMax; //Deixa o hp full após os acontecimentos do ato 3
+            }
         return 1;
     } else {
         return 0; // Heroi morreu na fase (em combate ou armadilha)
