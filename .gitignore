@@ -10,3 +10,8 @@
 
 # Arquivos temporários
 *.tmp
+jogo
+rpg
+*.exe
+*.o
+.vscode/
