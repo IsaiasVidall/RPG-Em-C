@@ -188,4 +188,4 @@ O jogo funciona inteiramente pelo teclado no terminal:
 
 ## 🎥 Vídeo de Demonstração (Gameplay)
 
-* **Assista à Gameplay e Explicação do Projeto:** [Clique aqui para assistir ao vídeo no YouTube / Google Drive]( vou colar o link do video aqui quando acabar )
+* **Assista à Gameplay e Explicação do Projeto:** [Clique aqui para assistir ao vídeo no YouTube / Google Drive](https://drive.google.com/file/d/1BXojRjgmxKhDnEKikwKqElVuHGaOsf-c/view?usp=drive_link)
